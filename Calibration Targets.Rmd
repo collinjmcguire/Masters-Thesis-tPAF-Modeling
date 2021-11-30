@@ -1,0 +1,95 @@
+---
+title: "Calibration Targets"
+author: "Collin McGuire"
+date: "11/23/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r Reading in Files}
+library(tidyverse)
+library(readxl)
+# FSW Prevalence
+prev_fsw_sheet <- read_excel("C:/Users/colli/OneDrive/Desktop/Hopkins Things/Thesis/McGuire Parameter Sheet.xlsx", sheet = "Prevalence FSW")
+
+# MSM Prevalence
+prev_msm_sheet <- read_excel("C:/Users/colli/OneDrive/Desktop/Hopkins Things/Thesis/McGuire Parameter Sheet.xlsx", sheet = "Prevalence MSM")
+
+# TG Prevalence
+prev_tg_sheet <- read_excel("C:/Users/colli/OneDrive/Desktop/Hopkins Things/Thesis/McGuire Parameter Sheet.xlsx", sheet = "Prevalence TG")
+
+# FSW Pop Size
+size_fsw_sheet <- read_excel("C:/Users/colli/OneDrive/Desktop/Hopkins Things/Thesis/McGuire Parameter Sheet.xlsx", sheet = "Size FSW")
+
+# MSM Pop Size
+size_msm_sheet <- read_excel("C:/Users/colli/OneDrive/Desktop/Hopkins Things/Thesis/McGuire Parameter Sheet.xlsx", sheet = "Size MSM")
+
+# TG Pop Size
+size_tg_sheet <- read_excel("C:/Users/colli/OneDrive/Desktop/Hopkins Things/Thesis/McGuire Parameter Sheet.xlsx", sheet = "Size TG")
+
+# FSW Cascade
+fsw_cascade_sheet <- read_excel("C:/Users/colli/OneDrive/Desktop/Hopkins Things/Thesis/McGuire Parameter Sheet.xlsx", sheet = "ART FSW")
+
+# MSM Cascade
+msm_cascade_sheet <- read_excel("C:/Users/colli/OneDrive/Desktop/Hopkins Things/Thesis/McGuire Parameter Sheet.xlsx", sheet = "ART MSM")
+
+# TG Cascade
+tg_cascade_sheet <- read_excel("C:/Users/colli/OneDrive/Desktop/Hopkins Things/Thesis/McGuire Parameter Sheet.xlsx", sheet = "ART TG")
+
+
+```
+
+
+```{r FSW HIV Prevalence Calibration Curve}
+library(ggplot2)
+library(tidyverse)
+
+pd <- position_dodge(0.5)
+
+# Prevalence FSW
+prev_fsw <- ggplot(data = prev_fsw_sheet, aes(x = year_end, y = prevalence_percent, group = number)) +
+  geom_point(position = pd) + geom_errorbar(aes(ymin = ci_low, ymax = ci_high), position=pd) + geom_line() + theme_bw()
+prev_fsw
+
+#Prevalence MSM
+prev_msm <- ggplot(data = prev_msm_sheet, aes(x = year_end, y = prevalence_percent, group = number)) +
+  geom_point(position=pd) + geom_errorbar(aes(ymin = ci_low, ymax = ci_high), position=pd) + theme_bw()
+prev_msm
+
+#Prevalence TG
+prev_tg <- ggplot(data = prev_tg_sheet, aes(x = year_end, y = prevalence_percent, group = number)) +
+  geom_point(position=pd) + geom_errorbar(aes(ymin = ci_low, ymax = ci_high), position=pd)
+prev_tg
+
+#Pop Size FSW
+size_fsw <- ggplot(data = size_fsw_sheet, aes(x = year_end, y = count, group = number)) +
+  geom_point(position=pd) + geom_errorbar(aes(ymin = ci_low, ymax = ci_high), position=pd)
+size_fsw
+
+#Pop Size MSM, Need CI for no error
+size_msm <- ggplot(data = size_msm_sheet, aes(x = year_end, y = count, group = number)) +
+  geom_point(position=pd) 
+size_msm
+
++ geom_errorbar(aes(ymin = ci_low, ymax = ci_high), position=pd)
+
+#Pop Size TG, Need CI for no error
+size_tg <- ggplot(data = size_tg_sheet, aes(x = year_end, y = count, group = number)) +
+  geom_point(position=pd) 
+size_tg
+
++ geom_errorbar(aes(ymin = ci_low, ymax = ci_high), position=pd)
+
+#Cascade FSW
+
+
+#Cascade MSM
+
+
+#Cascade TG
+
+```
